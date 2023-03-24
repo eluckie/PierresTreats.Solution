@@ -10,23 +10,32 @@
   @if (Model.Count == 0)
   {
     <h5>No treats have been saved yet!</h5>
+    <p>@Html.ActionLink("Add a New Treat", "Create")</p>
   }
   else
   {
     <ul>
       @foreach (Treat treat in Model)
       {
-        <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
+        <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
         <ul>
           <li>
-            @foreach (TreatFlavor join in treat.Join)
+            @if (treat.Join.Count == 0)
             {
-              @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+              <p>No flavors have been added to this treat yet</p>
+            }
+            else
+            {
+              @foreach (TreatFlavor join in treat.Join)
+              {
+                @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+              }
             }
           </li>
         </ul>
       }
     </ul>
+    <p>@Html.ActionLink("Add a New Treat", "Create")</p>
   }
   @using (Html.BeginForm())
   {
@@ -44,14 +53,21 @@
       <ul>
         @foreach (Treat treat in @ViewBag.AllTreats)
         {
-          <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
+          <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
           <ul>
             <li>
+            @if (treat.Join.Count == 0)
+            {
+              <p>No flavors have been added to this treat yet</p>
+            }
+            else
+            {
               @foreach (TreatFlavor join in treat.Join)
               {
                 @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
               }
-            </li>
+            }
+          </li>
           </ul>
         }
       </ul>
@@ -74,12 +90,19 @@ else
     <ul>
       @foreach (Treat treat in Model)
       {
-        <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
+        <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
         <ul>
           <li>
-            @foreach (TreatFlavor join in treat.Join)
+            @if (treat.Join.Count == 0)
             {
-              @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+              <p>No flavors have been added to this treat yet</p>
+            }
+            else
+            {
+              @foreach (TreatFlavor join in treat.Join)
+              {
+                @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+              }
             }
           </li>
         </ul>
