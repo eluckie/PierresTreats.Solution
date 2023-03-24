@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Treats.Models;
+@model Treats.Models.Treat
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+<h5>Ingredients</h5>
+<p>@Html.DisplayFor(model => model.Ingredients)</p>
+<br>
+<h5>Flavor Profiles</h5>
+@if (Model.Join.Count == 0)
+{
+  <p>This treat hasn't specified any flavors yet</p>
+}
+else
+{
+  @foreach (TreatFlavor join in Model.Join)
+  {
+    <p>@join.Flavor.Description</p>
+  }
+}
+
+<p>@Html.ActionLink("Back to List", "Index")</p>

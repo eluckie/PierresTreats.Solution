@@ -56,6 +56,7 @@ namespace Treats.Controllers
     }
     public ActionResult Create()
     {
+      ViewBag.PageTitle = "Add Treat";
       return View();
     }
     [HttpPost]
@@ -74,6 +75,15 @@ namespace Treats.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
       }
+    }
+    public ActionResult Details(int id)
+    {
+      ViewBag.PageTitle = "Treat Details";
+      Treat thisTreat = _db.Treats
+        .Include(treat => treat.Join)
+        .ThenInclude(join => join.Flavor)
+        .FirstOrDefault(treat => treat.TreatId == id);
+      return View(thisTreat);
     }
   }
 }
