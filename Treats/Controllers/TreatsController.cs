@@ -76,6 +76,7 @@ namespace Treats.Controllers
         return RedirectToAction("Index");
       }
     }
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       ViewBag.PageTitle = "Treat Details";
