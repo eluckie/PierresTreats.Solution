@@ -1,25 +1,58 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Treats.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
 
 namespace Treats.Controllers
 {
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly TreatsContext _db;
     private readonly UserManager<AppUser> _userManager;
     public FlavorsController(UserManager<AppUser> userManager, TreatsContext db)
       {
-        userManager = _userManager;
-        db = _db;
+        _userManager = userManager;
+        _db = db;
       }
-    public ActionResult Index()
+      [AllowAnonymous]
+    public async Task<ActionResult> Index()
     {
-      return View();
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      AppUser currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.PageTitle = "Flavors";
+      if (currentUser != null)
+      {
+        List<Flavor> userFlavors = _db.Flavors
+          .Where(entry => entry.User.Id == currentUser.Id)
+          .OrderBy(flavor => flavor.Description)
+          .Include(flavor => flavor.Join)
+          .ThenInclude(join => join.Treat)
+          .ToList();
+        List<Flavor> allFlavors = _db.Flavors
+          .OrderBy(flavor => flavor.Description)
+          .Include(flavor => flavor.Join)
+          .ThenInclude(join => join.Treat)
+          .ToList();
+        ViewBag.AllFlavors = allFlavors;
+        ViewBag.Nickname = currentUser.Nickname;
+        return View(userFlavors);
+      }
+      else
+      {
+        List<Flavor> allFlavors = _db.Flavors
+          .OrderBy(flavor => flavor.Description)
+          .Include(flavor => flavor.Join)
+          .ThenInclude(join => join.Treat)
+          .ToList();
+        return View(allFlavors);
+      }
     }
   }
 }

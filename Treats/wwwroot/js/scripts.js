@@ -9,16 +9,30 @@ function hideModal(type) {
   document.getElementById(`${type}-modal`).classList.add('obscured');
 }
 
-function showList() {
+function showTreatList() {
   let list = document.getElementById("treat-list");
   list.removeAttribute("class");
   let button = document.getElementById("see-treats-button");
   button.setAttribute("class", "hidden");
 }
 
-function hideList() {
+function hideTreatList() {
   let list = document.getElementById("treat-list");
   list.setAttribute("class", "hidden");
   let button = document.getElementById("see-treats-button");
+  button.removeAttribute("class");
+}
+
+function showFlavorList() {
+  let list = document.getElementById("flavor-list");
+  list.removeAttribute("class");
+  let button = document.getElementById("see-flavors-button");
+  button.setAttribute("class", "hidden");
+}
+
+function hideFlavorList() {
+  let list = document.getElementById("flavor-list");
+  list.setAttribute("class", "hidden");
+  let button = document.getElementById("see-flavors-button");
   button.removeAttribute("class");
 }
