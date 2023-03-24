@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+  <h2>Hello @ViewBag.Nickname</h2>
+  
+  <h5>Account Details</h5>
+  <p>Username: @ViewBag.UserName</p>
+  <p>Email: @ViewBag.Email</p>
+
+  @using (Html.BeginForm("LogOut", "Account"))
+  {
+    <input type="submit" value="Log out">
+  }
+}
+else
+{
+  <h5>@Html.ActionLink("Create an account", "Register")</h5>
+  <h5>@Html.ActionLink("Log in", "Login")</h5>
+}

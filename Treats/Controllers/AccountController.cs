@@ -41,7 +41,7 @@ namespace Treats.Controllers
         IdentityResult result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
-          return RedirectToAction("Index");
+          return RedirectToAction("Login");
         }
         else
         {
@@ -96,6 +96,24 @@ namespace Treats.Controllers
           }
         }
       }
+    }
+    [HttpPost]
+    public async Task<IActionResult> LogOut()
+    {
+      await _signInManager.SignOutAsync();
+      return RedirectToAction("Index", "Home");
+    }
+    public async Task<IActionResult> Index()
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      AppUser currentUser = await _userManager.FindByIdAsync(userId);
+      if (currentUser != null)
+      {
+        ViewBag.Nickname = currentUser.Nickname;
+        ViewBag.Email = currentUser.Email;
+        ViewBag.UserName = currentUser.UserName;
+      }
+      return View();
     }
   }
 }
