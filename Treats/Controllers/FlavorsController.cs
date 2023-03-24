@@ -54,5 +54,27 @@ namespace Treats.Controllers
         return View(allFlavors);
       }
     }
+    public ActionResult Create()
+    {
+      ViewBag.PageTitle = "Add Flavor";
+      return View();
+    }
+    [HttpPost]
+    public async Task<ActionResult> Create(Flavor flavor)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(flavor);
+      }
+      else
+      {
+        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        AppUser currentUser = await _userManager.FindByIdAsync(userId);
+        flavor.User = currentUser;
+        _db.Flavors.Add(flavor);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
+    }
   }
 }
