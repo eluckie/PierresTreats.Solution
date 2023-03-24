@@ -20,17 +20,22 @@ namespace Treats.Controllers
     [HttpGet("/")]
     public async Task<ActionResult> Index()
     {
-      // string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      // AppUser currentUser = await _userManager.FindByIdAsync(userId);
-      // ViewBag.PageTitle = "Pierre's Sweet and Savory Treats";
-      // if (currentUser != null)
-      // {
-      //   ViewBag.Nickname = currentUser.Nickname;
-      //   List<Treat> treats = _db.Treats
-      //     .Where(entry => entry.User.Id == currentUser.Id)
-      //     .ToList();
-      //   return View(treats);
-      // }
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      AppUser currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.PageTitle = "Pierre's Sweet and Savory Treats";
+      if (currentUser != null)
+      {
+        List<Treat> treats = _db.Treats
+          .Where(entry => entry.User.Id == currentUser.Id)
+          .ToList();
+        List<Flavor> flavors = _db.Flavors
+          .Where(entry => entry.User.Id == currentUser.Id)
+          .ToList();
+        ViewBag.TreatList = treats;
+        ViewBag.FlavorList = flavors;
+        ViewBag.Nickname = currentUser.Nickname;
+        return View();
+      }
       return View();
     }
   }

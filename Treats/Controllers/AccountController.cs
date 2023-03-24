@@ -24,11 +24,13 @@ namespace Treats.Controllers
     }
     public IActionResult Register()
     {
+      ViewBag.PageTitle = "Create an account";
       return View();
     }
     [HttpPost]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
+      ViewBag.PageTitle = "Create an account";
       if (!ModelState.IsValid)
       {
         return View(model);
@@ -48,6 +50,50 @@ namespace Treats.Controllers
             ModelState.AddModelError("", error.Description);
           }
           return View(model);
+        }
+      }
+    }
+    public ActionResult Login()
+    {
+      ViewBag.PageTitle = "Account Login";
+      return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginViewModel model)
+    {
+      ViewBag.PageTitle = "Account Login";
+      if (!ModelState.IsValid)
+      {
+        return View(model);
+      }
+      else
+      {
+        AppUser user = await _userManager.FindByEmailAsync(model.Email);
+        if (user != null)
+        {
+          Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: true, lockoutOnFailure: false);
+          if (result.Succeeded)
+          {
+            return RedirectToAction("Index");
+          }
+          else
+          {
+          ModelState.AddModelError("", "Whoopsies! There is something wrong with your email or username. Please try again.");
+          return View(model);
+          }
+        }
+        else
+        {
+          Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(userName: model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+          if (result.Succeeded)
+          {
+            return RedirectToAction("Index");
+          }
+          else
+          {
+            ModelState.AddModelError("", "Whoops! There is something wrong with your email or username. Please try again.");
+            return View(model);
+          }
         }
       }
     }

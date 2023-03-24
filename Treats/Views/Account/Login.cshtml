@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Treats.ViewModels
+@model LoginViewModel
+
+<h2>Log in</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+  @Html.ValidationSummary("Please fix the following error(s) and try again.")
+}
+
+@using (Html.BeginForm())
+{
+  @Html.Label("Email or Username")
+  @Html.TextBoxFor(model => model.Email)
+  <br><br>
+  @Html.LabelFor(model => model.Password)
+  @Html.EditorFor(model=> model.Password)
+  <br><br>
+  <input type="submit" value="Log in">
+}
