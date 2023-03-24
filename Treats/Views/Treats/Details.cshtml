@@ -40,14 +40,32 @@ else
     @Html.TextAreaFor(model => model.Ingredients, new { rows = "10" })
     <br><br>
     <input type="submit" value="Update Treat">
-    <br>
+    <br><br>
     <button type="button" onclick="hideModal('treat-edit')">Cancel</button>
+  }
+</div>
+
+<div id="treat-delete-modal" class="modal obscured">
+  @using (Html.BeginForm("Delete", "Treats", new { id = Model.TreatId }))
+  {
+    @Html.HiddenFor(model => model.TreatId)
+
+    <p>Are you sure you want to delete @Html.DisplayFor(model => model.Name)?</p>
+    <br>
+    <input type="submit" value="Delete @Model.Name">
+    <br><br>
+    <button type="button" onclick="hideModal('treat-delete')">Cancel</button>
   }
 </div>
 
 @using (Html.BeginForm())
 {
   <input type="button" onclick="showModal('treat-edit')" value="Edit Treat">
+}
+
+@using (Html.BeginForm())
+{
+  <input type="button" onclick="showModal('treat-delete')" value="Delete Treat">
 }
 
 <br>

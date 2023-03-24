@@ -31,12 +31,12 @@ namespace Treats.Controllers
       {
         List<Treat> userTreats = _db.Treats
           .Where(entry => entry.User.Id == currentUser.Id)
-          .OrderByDescending(treat => treat.Name)
+          .OrderBy(treat => treat.Name)
           .Include(treat => treat.Join)
           .ThenInclude(join => join.Flavor)
           .ToList();
         List<Treat> allTreats = _db.Treats
-          .OrderByDescending(treat => treat.Name)
+          .OrderBy(treat => treat.Name)
           .Include(treat => treat.Join)
           .ThenInclude(join => join.Flavor)
           .ToList();
@@ -47,7 +47,7 @@ namespace Treats.Controllers
       else
       {
         List<Treat> allTreats = _db.Treats
-          .OrderByDescending(treat => treat.Name)
+          .OrderBy(treat => treat.Name)
           .Include(treat => treat.Join)
           .ThenInclude(join => join.Flavor)
           .ToList();
@@ -91,6 +91,14 @@ namespace Treats.Controllers
       _db.Treats.Update(updatedTreat);
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = updatedTreat.TreatId });
+    }
+    [HttpPost]
+    public ActionResult Delete(int id)
+    {
+      Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
+      _db.Treats.Remove(thisTreat);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
   }
 }
