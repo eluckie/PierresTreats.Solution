@@ -49,11 +49,13 @@ _{This is a detailed description of your application. Give as much detail as nee
 4. Within the production level of this directory, called _**Treats**_, create a new file called **appsettings.json**
 5. Input the following code into your _**appsettings.json**_ file
 
-```{
+```
+{
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Port=3306;database=[YOUR-DB-NAME];uid=[YOUR-USER-HERE];pwd=[YOUR-PASSWORD-HERE];"
   }
-}```
+}
+```
 
 * Replace _[ YOUR-DB-NAME ]_ with the name you would like for the database that you will be utilizing via MySQL Workbench
 * Replace _[ YOUR-USER-HERE ]_ with your username for MySQL Workbench
