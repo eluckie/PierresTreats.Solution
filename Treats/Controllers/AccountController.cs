@@ -18,9 +18,38 @@ namespace Treats.Controllers
 
     public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TreatsContext db)
     {
-      userManager = _userManager;
-      signInManager = _signInManager;
-      db = _db;
+      _userManager = userManager;
+      _signInManager = signInManager;
+      _db = db;
+    }
+    public IActionResult Register()
+    {
+      return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> Register(RegisterViewModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(model);
+      }
+      else
+      {
+        AppUser user = new AppUser { Email = model.Email, UserName = model.UserName, Nickname = model.Nickname };
+        IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+        if (result.Succeeded)
+        {
+          return RedirectToAction("Index");
+        }
+        else
+        {
+          foreach (IdentityError error in result.Errors)
+          {
+            ModelState.AddModelError("", error.Description);
+          }
+          return View(model);
+        }
+      }
     }
   }
 }

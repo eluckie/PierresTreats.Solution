@@ -1,9 +1,17 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RecipeBox.ViewModels
+namespace Treats.ViewModels
 {
   public class RegisterViewModel
   {
+    [Required]
+    [Display(Name = "Nickname")]
+    public string Nickname { get; set; }
+
+    [Required]
+    [Display(Name = "Username")]
+    public string UserName { get; set; }
+
     [Required]
     [EmailAddress]
     [Display(Name = "Email")]
