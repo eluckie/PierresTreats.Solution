@@ -6,10 +6,10 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-  <h2>@ViewBag.Nickname's Favorited Treats</h2>
+  <h2>@ViewBag.Nickname's Saved Treats</h2>
   @if (Model.Count == 0)
   {
-    <h5>No treats have been favorited yet!</h5>
+    <h5>No treats have been saved yet!</h5>
   }
   else
   {
@@ -28,6 +28,39 @@
       }
     </ul>
   }
+  @using (Html.BeginForm())
+  {
+    <input type="button" value="See All Treats" onclick="showList()" id="see-treats-button">
+  }
+  <br>
+  <div id="treat-list" class="hidden">
+    <h2>All Available Treats</h2>
+    @if (@ViewBag.AllTreats.Count == 0)
+    {
+      <h5>No treats have been added yet!</h5>
+    }
+    else
+    {
+      <ul>
+        @foreach (Treat treat in @ViewBag.AllTreats)
+        {
+          <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
+          <ul>
+            <li>
+              @foreach (TreatFlavor join in treat.Join)
+              {
+                @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+              }
+            </li>
+          </ul>
+        }
+      </ul>
+    }
+    @using (Html.BeginForm())
+    {
+      <input type="button" value="Hide All Treats" onclick="hideList()">
+    }
+  </div>
 }
 else
 {

@@ -35,6 +35,12 @@ namespace Treats.Controllers
           .Include(treat => treat.Join)
           .ThenInclude(join => join.Flavor)
           .ToList();
+        List<Treat> allTreats = _db.Treats
+          .OrderByDescending(treat => treat.Name)
+          .Include(treat => treat.Join)
+          .ThenInclude(join => join.Flavor)
+          .ToList();
+        ViewBag.AllTreats = allTreats;
         ViewBag.Nickname = currentUser.Nickname;
         return View(userTreats);
       }
