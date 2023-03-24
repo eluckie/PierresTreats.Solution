@@ -105,15 +105,24 @@ namespace Treats.Controllers
     }
     public async Task<IActionResult> Index()
     {
+      ViewBag.PageTitle = "Account Details";
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       AppUser currentUser = await _userManager.FindByIdAsync(userId);
       if (currentUser != null)
       {
-        ViewBag.Nickname = currentUser.Nickname;
-        ViewBag.Email = currentUser.Email;
-        ViewBag.UserName = currentUser.UserName;
+        return View(currentUser);
       }
-      return View();
+      return View(currentUser);
+    }
+    [HttpPost]
+    public async Task<IActionResult> Edit(string Nickname, string UserName)
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      AppUser userToUpdate = await _userManager.FindByIdAsync(userId);
+      userToUpdate.UserName = UserName;
+      userToUpdate.Nickname = Nickname;
+      IdentityResult result = await _userManager.UpdateAsync(userToUpdate);
+      return RedirectToAction("Index");
     }
   }
 }

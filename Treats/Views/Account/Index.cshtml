@@ -1,14 +1,39 @@
 @{
   Layout = "_Layout";
 }
+@model Treats.Models.AppUser
 
 @if (User.Identity.IsAuthenticated)
 {
-  <h2>Hello @ViewBag.Nickname</h2>
+  <h2>Hello @Model.Nickname</h2>
   
   <h5>Account Details</h5>
-  <p>Username: @ViewBag.UserName</p>
-  <p>Email: @ViewBag.Email</p>
+  <p>Username: @Model.UserName</p>
+  <p>Email: @Model.Email</p>
+
+  <div id="edit-modal" class="modal obscured">
+    <div class="modal-message">
+      <p>Edit Your Details</p>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Account", new { id = Model.Id }))
+    {
+      @Html.Label("Nickname")
+      @Html.TextBoxFor(model => model.Nickname)
+      <br><br>
+      @Html.Label("Username")
+      @Html.TextBoxFor(model => model.UserName)
+      <br><br>
+      <input type="submit" value="Update Details">
+      <br>
+      <button onclick="hideModal('edit')">Cancel</button>
+    }
+  </div>
+
+  @using (Html.BeginForm())
+  {
+    <input type="button" onclick="showModal('edit')" value="Edit Details">
+  }
 
   @using (Html.BeginForm("LogOut", "Account"))
   {
