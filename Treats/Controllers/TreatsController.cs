@@ -85,5 +85,12 @@ namespace Treats.Controllers
         .FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
+    [HttpPost]
+    public ActionResult Edit(Treat updatedTreat)
+    {
+      _db.Treats.Update(updatedTreat);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = updatedTreat.TreatId });
+    }
   }
 }

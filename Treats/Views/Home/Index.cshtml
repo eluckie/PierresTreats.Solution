@@ -4,30 +4,35 @@
 
 @using Treats.Models
 
-<h1>Welcome</h1>
+<h1>Welcome @ViewBag.Nickname</h1>
+
 @if (User.Identity.IsAuthenticated)
 {
-  <h2>@ViewBag.Nickname's Treats and Sweets</h2>
+  <h4>Saved Sweets & Treats</h4>
   @if (@ViewBag.TreatList.Count == 0)
   {
-    <h4>No treats have been added to your list!</h4>
+    <h5>No treats have been added to your list!</h5>
   }
   @foreach (Treat treat in @ViewBag.TreatList)
   {
-    <h3>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId })</h3>
+    <h5>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId })</h5>
   }
   <br>
-  <h2>Saved Flavors</h2>
+  <h4>Saved Flavors</h4>
   @if (@ViewBag.FlavorList.Count == 0)
   {
-    <h4>No flavors have been added to your list!</h4>
+    <h5>No flavors have been added to your list!</h5>
   }
   @foreach (Flavor flavor in @ViewBag.FlavorList)
   {
-    <h3>@Html.ActionLink(@flavor.Description, "Details", "Flavors", new { id = @flavor.FlavorId })</h3>
+    <h5>@Html.ActionLink(@flavor.Description, "Details", "Flavors", new { id = @flavor.FlavorId })</h5>
   }
+  <br>
+  <p>@Html.ActionLink("Add New Treat", "Create", "Treats")</p>
+  <p>@Html.ActionLink("Add New Flavor", "Create", "Flavors")</p>
 }
 else
 {
-  <h4>You must @Html.ActionLink("login", "LogIn", "Account") to view or manage your treats</h4>
+  <h5>You must @Html.ActionLink("login", "LogIn", "Account") to view or manage your saved treats and flavors</h5>
+  <p>You may still view all @Html.ActionLink("treats", "Index", "Treats") or @Html.ActionLink("flavors", "Index", "Flavors")</p>
 }
