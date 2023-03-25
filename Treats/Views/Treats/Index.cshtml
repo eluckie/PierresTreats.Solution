@@ -19,7 +19,6 @@
       {
         <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
         <ul>
-          <li>
             @if (treat.Join.Count == 0)
             {
               <p>No flavors have been added to this treat yet</p>
@@ -28,10 +27,9 @@
             {
               @foreach (TreatFlavor join in treat.Join)
               {
-                @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+                <li>@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
               }
             }
-          </li>
         </ul>
       }
     </ul>
@@ -39,7 +37,7 @@
   }
   @using (Html.BeginForm())
   {
-    <input type="button" value="See All Treats" onclick="showList()" id="see-treats-button">
+    <input type="button" value="See All Treats" onclick="showTreatList()" id="see-treats-button">
   }
   <br>
   <div id="treat-list" class="hidden">
@@ -55,7 +53,6 @@
         {
           <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
           <ul>
-            <li>
             @if (treat.Join.Count == 0)
             {
               <p>No flavors have been added to this treat yet</p>
@@ -64,17 +61,16 @@
             {
               @foreach (TreatFlavor join in treat.Join)
               {
-                @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+                <li>@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
               }
             }
-          </li>
           </ul>
         }
       </ul>
     }
     @using (Html.BeginForm())
     {
-      <input type="button" value="Hide All Treats" onclick="hideList()">
+      <input type="button" value="Hide All Treats" onclick="hideTreatList()">
     }
   </div>
 }
@@ -92,7 +88,6 @@ else
       {
         <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
         <ul>
-          <li>
             @if (treat.Join.Count == 0)
             {
               <p>No flavors have been added to this treat yet</p>
@@ -101,10 +96,9 @@ else
             {
               @foreach (TreatFlavor join in treat.Join)
               {
-                @Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })
+                <li>@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
               }
             }
-          </li>
         </ul>
       }
     </ul>

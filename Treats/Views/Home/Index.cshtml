@@ -4,11 +4,14 @@
 
 @using Treats.Models
 
-<h1>Welcome @ViewBag.Nickname</h1>
+<div id="title">
+  <img id="title-img" src="https://see.fontimg.com/api/renderfont4/8Mymn/eyJyIjoiZnMiLCJoIjo1NCwidyI6MTAwMCwiZnMiOjU0LCJmZ2MiOiIjQzc3NUE2IiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UGllcnJlJ3MgU3dlZXRzIGFuZCBUcmVhdHM/sweet-peas.png" alt="Heading fonts: Pierre's Sweets and Treats">
+  <h2>Welcome @ViewBag.Nickname</h2>
+</div>
 
 @if (User.Identity.IsAuthenticated)
 {
-  <h4>Saved Sweets & Treats</h4>
+  <h4>Sweets & Treats</h4>
   @if (@ViewBag.TreatList.Count == 0)
   {
     <h5>No treats have been added to your list!</h5>
@@ -18,7 +21,7 @@
     <h5>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId })</h5>
   }
   <br>
-  <h4>Saved Flavors</h4>
+  <h4>Flavor Profiles</h4>
   @if (@ViewBag.FlavorList.Count == 0)
   {
     <h5>No flavors have been added to your list!</h5>
@@ -33,6 +36,10 @@
 }
 else
 {
-  <h5>You must @Html.ActionLink("login", "LogIn", "Account") to view or manage your saved treats and flavors</h5>
-  <p>You may still view all @Html.ActionLink("treats", "Index", "Treats") or @Html.ActionLink("flavors", "Index", "Flavors")</p>
+  <div id="title">
+    <div id="page-content">
+      <h5>You must @Html.ActionLink("create an account", "Register", "Account") or @Html.ActionLink("login", "LogIn", "Account") to manage your treats and flavors</h5>
+      <p>You may still view all @Html.ActionLink("treats", "Index", "Treats") or @Html.ActionLink("flavors", "Index", "Flavors")</p>
+    </div>
+  </div>
 }

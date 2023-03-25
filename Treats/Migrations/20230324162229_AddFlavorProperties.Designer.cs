@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Treats.Models;
 
@@ -10,9 +11,10 @@ using Treats.Models;
 namespace Treats.Migrations
 {
     [DbContext(typeof(TreatsContext))]
-    partial class TreatsContextModelSnapshot : ModelSnapshot
+    [Migration("20230324162229_AddFlavorProperties")]
+    partial class AddFlavorProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,9 +157,6 @@ namespace Treats.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AccountName")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
@@ -174,9 +173,6 @@ namespace Treats.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Nickname")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -224,15 +220,9 @@ namespace Treats.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("FlavorId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Flavors");
                 });
@@ -244,19 +234,12 @@ namespace Treats.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Ingredients")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("TreatId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Treats");
                 });
@@ -267,17 +250,7 @@ namespace Treats.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("FlavorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TreatId")
-                        .HasColumnType("int");
-
                     b.HasKey("TreatFlavorId");
-
-                    b.HasIndex("FlavorId");
-
-                    b.HasIndex("TreatId");
 
                     b.ToTable("TreatFlavors");
                 });
@@ -331,53 +304,6 @@ namespace Treats.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Treats.Models.Flavor", b =>
-                {
-                    b.HasOne("Treats.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Treats.Models.Treat", b =>
-                {
-                    b.HasOne("Treats.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Treats.Models.TreatFlavor", b =>
-                {
-                    b.HasOne("Treats.Models.Flavor", "Flavor")
-                        .WithMany("Join")
-                        .HasForeignKey("FlavorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Treats.Models.Treat", "Treat")
-                        .WithMany("Join")
-                        .HasForeignKey("TreatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Flavor");
-
-                    b.Navigation("Treat");
-                });
-
-            modelBuilder.Entity("Treats.Models.Flavor", b =>
-                {
-                    b.Navigation("Join");
-                });
-
-            modelBuilder.Entity("Treats.Models.Treat", b =>
-                {
-                    b.Navigation("Join");
                 });
 #pragma warning restore 612, 618
         }

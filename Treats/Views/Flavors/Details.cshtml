@@ -85,7 +85,7 @@ else
     <ul>
     @foreach (TreatFlavor join in Model.Join)
     {
-      <li><p>@Html.ActionLink(join.Treat.Name, "Details", "Treats", new { id = join.TreatId })</p></li>
+      <li><h5>@Html.ActionLink(join.Treat.Name, "Details", "Treats", new { id = join.TreatId })</h5></li>
     }
     </ul>
   }

@@ -2,8 +2,39 @@
 	display: none;
 }
 
+body {
+	font-family: Marker Felt;
+	background-image: url(../img/sweets.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+[href] {
+	font-family:Bradley Hand;
+	text-decoration: none;
+	color: #4080c0;
+}
+
+.navbar {
+	font-size: 24px;
+	background-color: #efecef;
+}
+
+#navbar-link {
+	padding: 8px;
+	margin: 2px;
+	box-shadow: 0px 0px 0px 0px #FC5185;
+  transition: box-shadow 0.6s linear;
+  margin: 0.5em;
+	color: #dd84c8;
+}
+
+#navbar-link:hover {
+	box-shadow: 0px 0px 0px 2px #4080c0;
+	color: #4080c0;
+}
+
 .modal {
-  /* position: absolute; */
   color: #aaa;
 	min-width: 20rem;
 	left: 50%;
@@ -60,4 +91,18 @@
 	background-color: rgb(76, 64, 64);
   width: 300px;
   height: 200px;
+}
+
+#title-img {
+	width: 680px;
+}
+
+#title {
+	text-align: center;
+	padding: 20px;
+}
+
+#page-content {
+	margin: 10px;
+	padding: 10px;
 }

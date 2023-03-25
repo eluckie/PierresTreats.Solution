@@ -17,7 +17,6 @@ namespace Treats.Controllers
       _userManager = userManager;
       _db = db;
     }
-    [HttpGet("/")]
     public async Task<ActionResult> Index()
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

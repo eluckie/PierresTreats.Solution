@@ -7,9 +7,9 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-  <h2>@Html.DisplayFor(model => model.Name)</h2>
+  <h2>@Model.Name</h2>
   <h5>Ingredients</h5>
-  <p>@Html.DisplayFor(model => model.Ingredients)</p>
+  <p>@Model.Ingredients</p>
   <br>
   <h5>Flavor Profiles</h5>
   @if (Model.Join.Count == 0)
@@ -20,13 +20,18 @@
   {
     @foreach (TreatFlavor join in Model.Join)
     {
-      <p>@join.Flavor.Description</p>
+      <p>@Html.ActionLink(join.Flavor.Description, "Details", "Flavors", new { id = join.FlavorId })</p>
+      @using (Html.BeginForm("DeleteJoin", "Treats", new { joinId = join.TreatFlavorId }))
+      {
+        <input type="submit" value="Remove">
+        <br><br>
+      }
     }
   }
 
   <div id="treat-edit-modal" class="modal obscured">
     <div class="modal-message">
-      <p>Edit Treat Details</p>
+      <p>Edit @Model.Name Details</p>
     </div>
 
     @using (Html.BeginForm("Edit", "Treats", new { id = Model.TreatId }))
@@ -50,9 +55,7 @@
   <div id="treat-delete-modal" class="modal obscured">
     @using (Html.BeginForm("Delete", "Treats", new { id = Model.TreatId }))
     {
-      @Html.HiddenFor(model => model.TreatId)
-
-      <p>Are you sure you want to delete @Html.DisplayFor(model => model.Name)?</p>
+      <p>Are you sure you want to delete @Model.Name?</p>
       <br>
       <input type="submit" value="Delete @Model.Name">
       <br><br>
@@ -69,6 +72,8 @@
   {
     <input type="button" onclick="showModal('treat-delete')" value="Delete Treat">
   }
+  <br>
+  <p>@Html.ActionLink($"Add flavors to {Model.Name}", "AddFlavor", new { id = Model.TreatId })</p>
 }
 else
 {
@@ -85,10 +90,8 @@ else
   {
     @foreach (TreatFlavor join in Model.Join)
     {
-      <p>@join.Flavor.Description</p>
+      <p>@Html.ActionLink(join.Flavor.Description, "Details", "Flavors", new { id = join.FlavorId })</p>
     }
   }
 }
-
-<br>
 <p>@Html.ActionLink("Back to List", "Index")</p>

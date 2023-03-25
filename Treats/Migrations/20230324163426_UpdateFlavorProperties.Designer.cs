@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Treats.Models;
 
@@ -10,9 +11,10 @@ using Treats.Models;
 namespace Treats.Migrations
 {
     [DbContext(typeof(TreatsContext))]
-    partial class TreatsContextModelSnapshot : ModelSnapshot
+    [Migration("20230324163426_UpdateFlavorProperties")]
+    partial class UpdateFlavorProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,19 +246,12 @@ namespace Treats.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Ingredients")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("TreatId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Treats");
                 });
@@ -342,15 +337,6 @@ namespace Treats.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Treats.Models.Treat", b =>
-                {
-                    b.HasOne("Treats.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Treats.Models.TreatFlavor", b =>
                 {
                     b.HasOne("Treats.Models.Flavor", "Flavor")
@@ -360,7 +346,7 @@ namespace Treats.Migrations
                         .IsRequired();
 
                     b.HasOne("Treats.Models.Treat", "Treat")
-                        .WithMany("Join")
+                        .WithMany()
                         .HasForeignKey("TreatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -371,11 +357,6 @@ namespace Treats.Migrations
                 });
 
             modelBuilder.Entity("Treats.Models.Flavor", b =>
-                {
-                    b.Navigation("Join");
-                });
-
-            modelBuilder.Entity("Treats.Models.Treat", b =>
                 {
                     b.Navigation("Join");
                 });
