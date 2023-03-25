@@ -5,20 +5,25 @@
 @using Treats.ViewModels
 @model LoginViewModel
 
-<h2>Log in</h2>
+<div id="page-content">
+  <h2>Log in</h2>
 
-@if (!ViewData.ModelState.IsValid)
-{
-  @Html.ValidationSummary("Please fix the following error(s) and try again.")
-}
+  @if (!ViewData.ModelState.IsValid)
+  {
+    <span id="accent">@Html.ValidationSummary("Please fix the following error(s) and try again.")</span>
+  }
 
-@using (Html.BeginForm())
-{
-  @Html.Label("Email or Username")
-  @Html.TextBoxFor(model => model.Email)
-  <br><br>
-  @Html.LabelFor(model => model.Password)
-  @Html.EditorFor(model=> model.Password)
-  <br><br>
-  <input type="submit" value="Log in">
-}
+  @using (Html.BeginForm())
+  {
+    <br>
+    @Html.Label("Email or Username ")
+    <br>
+    @Html.TextBoxFor(model => model.Email)
+    <br><br>
+    @Html.Label("Password ")
+    <br>
+    @Html.EditorFor(model=> model.Password)
+    <br><br>
+    <input type="submit" value="Log in" id="blue-btn">
+  }
+</div>

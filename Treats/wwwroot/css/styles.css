@@ -27,6 +27,7 @@ body {
   transition: box-shadow 0.6s linear;
   margin: 0.5em;
 	color: #dd84c8;
+	font-family: Marker Felt;
 }
 
 #navbar-link:hover {
@@ -64,31 +65,31 @@ body {
 }
 
 .modal#edit-modal {
-	background-color: rgb(76, 64, 64);
+	background-color: #efecef;
   width: 500px;
   height: 300px;
 }
 
 .modal#treat-edit-modal {
-	background-color: rgb(76, 64, 64);
+	background-color: #efecef;
   width: 600px;
   height: 560px;
 }
 
 .modal#treat-delete-modal {
-	background-color: rgb(76, 64, 64);
+	background-color: #efecef;
   width: 300px;
   height: 200px;
 }
 
 .modal#flavor-edit-modal {
-	background-color: rgb(76, 64, 64);
+	background-color: #efecef;
   width: 300px;
   height: 300px;
 }
 
 .modal#flavor-delete-modal {
-	background-color: rgb(76, 64, 64);
+	background-color: #efecef;
   width: 300px;
   height: 200px;
 }
@@ -104,5 +105,32 @@ body {
 
 #page-content {
 	margin: 10px;
-	padding: 10px;
+	padding: 20px;
+}
+
+#cupcake {
+	width: 40px;
+}
+
+#accent {
+	color: #dd84c8;
+}
+
+#blue-accent {
+	color: #4080c0;
+	font-size: 26px;
+}
+
+#blue-btn {
+	background-color: #4080c0;
+	color: white;
+	font-family:Bradley Hand;
+	padding: 8px;
+}
+
+#grey-btn {
+	background-color: lightgray;
+	color: #4080c0;
+	font-family:Bradley Hand;
+	padding: 4px;
 }

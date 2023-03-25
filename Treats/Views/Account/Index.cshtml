@@ -3,45 +3,45 @@
 }
 @model Treats.Models.AppUser
 
-@if (User.Identity.IsAuthenticated)
-{
-  <h2>Hello @Model.Nickname</h2>
-  
-  <h5>Account Details</h5>
-  <p>Username: @Model.UserName</p>
-  <p>Email: @Model.Email</p>
+<div id="page-content">
+  @if (User.Identity.IsAuthenticated)
+  {
+    <h2 style="font-size: 40px;">Hello @Model.Nickname</h2>
+    <hr style="width: 220px;">
+    <h5 id="blue-accent">Account Details</h5>
+    <p>Username: @Model.UserName</p>
+    <p>Email: @Model.Email</p>
+    
+    <div id="edit-modal" class="modal obscured">
+      <div class="modal-message" id="page-content">
+        <p id="blue-accent">Edit Account Details</p>
+      </div>
 
-  <div id="edit-modal" class="modal obscured">
-    <div class="modal-message">
-      <p>Edit Account Details</p>
+      @using (Html.BeginForm("Edit", "Account", new { id = Model.Id }))
+      {
+        @Html.Label("Nickname ")
+        @Html.TextBoxFor(model => model.Nickname)
+        <br><br>
+        @Html.Label("Username ")
+        @Html.TextBoxFor(model => model.UserName)
+        <br><br>
+        <input type="submit" value="Update Details" id="blue-btn">
+        <button onclick="hideModal('edit')" id="grey-btn">Cancel</button>
+      }
     </div>
-
-    @using (Html.BeginForm("Edit", "Account", new { id = Model.Id }))
+    @using (Html.BeginForm())
     {
-      @Html.Label("Nickname")
-      @Html.TextBoxFor(model => model.Nickname)
-      <br><br>
-      @Html.Label("Username")
-      @Html.TextBoxFor(model => model.UserName)
-      <br><br>
-      <input type="submit" value="Update Details">
-      <br>
-      <button onclick="hideModal('edit')">Cancel</button>
+      <input type="button" onclick="showModal('edit')" value="Edit Details" id="blue-btn">
     }
-  </div>
-
-  @using (Html.BeginForm())
-  {
-    <input type="button" onclick="showModal('edit')" value="Edit Details">
+    <br>
+    @using (Html.BeginForm("LogOut", "Account"))
+    {
+      <input type="submit" value="Log out" id="grey-btn">
+    }
   }
-
-  @using (Html.BeginForm("LogOut", "Account"))
+  else
   {
-    <input type="submit" value="Log out">
+      <h5>@Html.ActionLink("Create an account", "Register")</h5>
+      <h5>@Html.ActionLink("Log in", "Login")</h5>
   }
-}
-else
-{
-  <h5>@Html.ActionLink("Create an account", "Register")</h5>
-  <h5>@Html.ActionLink("Log in", "Login")</h5>
-}
+</div>

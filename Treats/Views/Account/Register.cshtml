@@ -5,32 +5,34 @@
 @using Treats.ViewModels;
 @model RegisterViewModel
 
-<h2>Create a new account</h2>
-<hr>
+<div id="page-content">
+  <h2>Create a new account</h2>
+  <hr>
 
-@if (!ViewData.ModelState.IsValid)
-{
-  @Html.ValidationSummary("Please fix the following error(s) and resubmit:")
-}
+  @if (!ViewData.ModelState.IsValid)
+  {
+    <span id="accent">@Html.ValidationSummary("Please fix the following error(s) and resubmit:")</span>
+  }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
-{
-  @Html.LabelFor(model => model.Nickname)
-  @Html.TextBoxFor(model => model.Nickname)
-  <br><br>
-  @Html.Label("Username")
-  @Html.TextBoxFor(model => model.UserName)
-  <br><br>
-  @Html.LabelFor(model => model.Email)
-  @Html.TextBoxFor(model => model.Email)
-  <br><br>
-  @Html.LabelFor(model => model.Password)
-  @Html.EditorFor(model => model.Password)
-  <br><br>
-  @Html.Label("Confirm Password")
-  @Html.EditorFor(model => model.ConfirmPassword)
-  <br><br>
-  <input type="submit" value="Create account">
-}
-<br>
-<h5>@Html.ActionLink("Cancel", "Index")</h5>
+  @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+  {
+    @Html.Label("Nickname ")
+    @Html.TextBoxFor(model => model.Nickname)
+    <br><br>
+    @Html.Label("Username ")
+    @Html.TextBoxFor(model => model.UserName)
+    <br><br>
+    @Html.Label("Email ")
+    @Html.TextBoxFor(model => model.Email)
+    <br><br>
+    @Html.Label("Password ")
+    @Html.EditorFor(model => model.Password)
+    <br><br>
+    <span id="accent">@Html.Label("Confirm Password ")</span>
+    @Html.EditorFor(model => model.ConfirmPassword)
+    <br><br>
+    <input type="submit" value="Create account" id="blue-btn">
+  }
+  <br>
+  <h5>@Html.ActionLink("Cancel", "Index", "Home")</h5>
+</div>
