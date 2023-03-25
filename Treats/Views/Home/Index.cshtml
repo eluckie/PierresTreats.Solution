@@ -20,7 +20,7 @@
     }
     @foreach (Treat treat in @ViewBag.TreatList)
     {
-      <h5>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId })</h5>
+      <h4>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId })</h4>
     }
     <br>
     <h2 id="accent-font">Flavor Profiles</h2>
@@ -30,7 +30,7 @@
     }
     @foreach (Flavor flavor in @ViewBag.FlavorList)
     {
-      <h5>@Html.ActionLink(@flavor.Description, "Details", "Flavors", new { id = @flavor.FlavorId })</h5>
+      <h4>@Html.ActionLink(@flavor.Description, "Details", "Flavors", new { id = @flavor.FlavorId })</h4>
     }
     <br>
     <div id="page-links">
@@ -43,6 +43,7 @@
     <div id="title">
       <h5>You must @Html.ActionLink("create an account", "Register", "Account") or @Html.ActionLink("login", "LogIn", "Account") to manage your treats and flavors</h5>
       <p>You may still view all @Html.ActionLink("treats", "Index", "Treats") or @Html.ActionLink("flavors", "Index", "Flavors")</p>
+      <br><br><br><br><br><br>
     </div>
   }
 </div>

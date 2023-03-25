@@ -80,10 +80,8 @@
       <input type="button" onclick="showModal('treat-delete')" value="Delete Treat" id="grey-btn">
     }
     <br>
-    <div id="page-links">
-      <span id="page-links">@Html.ActionLink($"Add flavors to {Model.Name}", "AddFlavor", new { id = Model.TreatId })</span>
-      <span id="page-links">@Html.ActionLink("Back to List", "Index")</span>
-    </div>
+    <span id="page-links">@Html.ActionLink($"Add flavors to {Model.Name}", "AddFlavor", new { id = Model.TreatId })</span>
+    <span id="page-links">@Html.ActionLink("Back to List", "Index")</span>
   }
   else
   {

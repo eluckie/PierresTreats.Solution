@@ -80,7 +80,7 @@ _**Keep in mind, the project is currently set in development mode so the passwor
 ## Known Bugs
 
 * If leaving a form empty on update, throws an exception page rather than displaying error message
-* If leaving a spot empty on edit form for user, does not throw an error
+* If leaving a spot empty on edit form for user, ^
 
 ## Stretch Plans
 

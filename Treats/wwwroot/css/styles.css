@@ -6,6 +6,7 @@ body {
 	font-family: Marker Felt;
 	background-image: url(../img/sweets.jpg);
 	background-repeat: no-repeat;
+	background-position: center;
 	background-size: cover;
 }
 
@@ -156,10 +157,6 @@ body {
 }
 
 #page-links {
-  display: absolute;
-  margin: 10vw 0 0 0;
-}
-
-#page-links span > * {
-  padding: 1em 1em 1em 0;
+  padding: 4px;
+	display: inline-block;
 }
