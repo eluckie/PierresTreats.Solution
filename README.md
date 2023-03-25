@@ -72,7 +72,7 @@ This webpage acts as an online bakery. When not logged in, the home page advises
 8. In the command line, run the command ``dotnet watch run`` to compile and execute the webpage in Development mode
 * Optionally, you can run the command ``dotnet build`` to compile the program without running it
 
-_**Keep in mind, the project is currently set in development mode so the password requirements are off. If deploying, you will need to un-comment the Default Password Requirements in ``Program.cs`` as well as the regular expression in ``Treats/ViewModels/RegisterViewModel.cs``**_
+_**Keep in mind, the project is currently set in development mode so the password requirements are off. If deploying, you will need to un-comment out the Default Password Requirements in ``Program.cs`` as well as the regular expression in ``Treats/ViewModels/RegisterViewModel.cs``**_
 
 ### Schemas
 ![screenshot of database tables displaying all properties of Flavor, all properties of Treat, and tying the connection between the 2 to a TreatFlavor table with TreatId and FlavorId being the connecting piece](Treats/wwwroot/img/schema.png)
