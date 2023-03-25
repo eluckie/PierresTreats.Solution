@@ -101,5 +101,29 @@ namespace Treats.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    public ActionResult AddFlavor(int id)
+    {
+      ViewBag.PageTitle = "Add Flavor";
+      Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
+      ViewBag.Flavors = _db.Flavors.ToList();
+      return View(thisTreat);
+    }
+    [HttpPost]
+    public ActionResult AddFlavor(List<int> flavors, int treatId)
+    {
+      foreach (int flavor in flavors)
+      {
+        #nullable enable
+        TreatFlavor? join = _db.TreatFlavors.FirstOrDefault(entry => (entry.FlavorId == flavor && entry.TreatId == treatId));
+        #nullable disable
+
+        if (join == null && treatId != 0)
+        {
+          _db.TreatFlavors.Add(new TreatFlavor() { FlavorId = flavor, TreatId = treatId});
+          _db.SaveChanges();
+        }
+      }
+      return RedirectToAction("Details", new { id = treatId });
+    }
   }
 }

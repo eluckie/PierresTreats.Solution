@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Treats.Models.Treat
+@using Treats.Models;
+
+<div id="details">
+  <h2>Select which flavor profiles to add for @Model.Name</h2>
+</div>
+
+<form method="post">
+  <table class="table">
+    @foreach (Flavor flavor in ViewBag.Flavors)
+    {
+      <tr>
+        <td>@flavor.Description</td>
+        <td><input name="flavors" type="checkbox" value="@flavor.FlavorId"></td>
+      </tr>
+    }
+  </table>
+  <input type="hidden" value="@Model.TreatId" name="treatId" id="treatId">
+  <input type="submit" value="Add">
+</form>

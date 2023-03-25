@@ -61,8 +61,6 @@
     }
   </div>
 
-  <p>@Html.ActionLink($"Add treats to {Model.Description}", "AddTreat", new { id = Model.FlavorId })</p>
-
   @using (Html.BeginForm())
   {
     <input type="button" onclick="showModal('flavor-edit')" value="Edit Flavor">
@@ -72,6 +70,8 @@
   {
     <input type="button" onclick="showModal('flavor-delete')" value="Delete Flavor">
   }
+  <br>
+  <p>@Html.ActionLink($"Add treats to {Model.Description}", "AddTreat", new { id = Model.FlavorId })</p>
 }
 else
 {
@@ -90,5 +90,4 @@ else
     </ul>
   }
 }
-<br>
 <p>@Html.ActionLink("Back to List", "Index")</p>
