@@ -7,19 +7,19 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-  <h2>@Html.DisplayFor(model => model.Description)</h2>
-  <br>
-  <h5>Treats labeled @Model.Description</h5>
+  <h2>Treats labeled @Model.Description</h2>
   @if (Model.Join.Count == 0)
   {
     <p>This flavor profile hasn't been added to any treats yet</p>
   }
   else
   {
+    <ul>
     @foreach (TreatFlavor join in Model.Join)
     {
-      <p>@Html.ActionLink(join.Treat.Name, "Details", "Treats", new { id = join.TreatId })</p>
+      <li><p>@Html.ActionLink(join.Treat.Name, "Details", "Treats", new { id = join.TreatId })</p></li>
     }
+    </ul>
   }
 
   <div id="flavor-edit-modal" class="modal obscured">
@@ -54,6 +54,8 @@
     }
   </div>
 
+  <p>@Html.ActionLink($"Add treats to {Model.Description}", "AddTreat", new { id = Model.FlavorId })</p>
+
   @using (Html.BeginForm())
   {
     <input type="button" onclick="showModal('flavor-edit')" value="Edit Flavor">
@@ -66,18 +68,19 @@
 }
 else
 {
-  <h2>@Html.DisplayFor(model => model.Description)</h2>
-  <h5>Treats labeled @Model.Description</h5>
+  <h2>Treats labeled @Model.Description</h2>
   @if (Model.Join.Count == 0)
   {
     <p>This flavor profile hasn't been added to any treats yet</p>
   }
   else
   {
+    <ul>
     @foreach (TreatFlavor join in Model.Join)
     {
-      <p>@Html.ActionLink(join.Treat.Name, "Details", "Treats", new { id = join.TreatId })</p>
+      <li><p>@Html.ActionLink(join.Treat.Name, "Details", "Treats", new { id = join.TreatId })</p></li>
     }
+    </ul>
   }
 }
 <br>
