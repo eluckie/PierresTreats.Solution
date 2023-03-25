@@ -79,7 +79,7 @@ body {
 .modal#treat-delete-modal {
 	background-color: #efecef;
   width: 300px;
-  height: 200px;
+  height: 300px;
 }
 
 .modal#flavor-edit-modal {
@@ -91,7 +91,7 @@ body {
 .modal#flavor-delete-modal {
 	background-color: #efecef;
   width: 300px;
-  height: 200px;
+  height: 260px;
 }
 
 #title-img {
@@ -110,6 +110,7 @@ body {
 
 #cupcake {
 	width: 40px;
+	margin: 6px;
 }
 
 #accent {
@@ -126,6 +127,7 @@ body {
 	color: white;
 	font-family:Bradley Hand;
 	padding: 8px;
+	font-size: 18px;
 }
 
 #grey-btn {
@@ -133,4 +135,31 @@ body {
 	color: #4080c0;
 	font-family:Bradley Hand;
 	padding: 4px;
+}
+
+#pink-btn {
+	background-color: #dd84c8;
+	color: white;
+	font-family:Bradley Hand;
+	padding: 4px;
+}
+
+#tiny-btn {
+	font-size: 0.6rem;
+	padding: 0.8px;
+	background-color: lightgray;
+}
+
+#accent-font {
+	font-family:Bradley Hand;
+	color: #dd84c8;
+}
+
+#page-links {
+  display: absolute;
+  margin: 10vw 0 0 0;
+}
+
+#page-links span > * {
+  padding: 1em 1em 1em 0;
 }

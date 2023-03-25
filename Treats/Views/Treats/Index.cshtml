@@ -3,55 +3,97 @@
 }
 
 @using Treats.Models;
-
-@if (User.Identity.IsAuthenticated)
-{
-  <h2>@ViewBag.Nickname's Saved Treats</h2>
-  @if (Model.Count == 0)
+<div id="page-content">
+  @if (User.Identity.IsAuthenticated)
   {
-    <h5>No treats have been saved yet!</h5>
-    <p>@Html.ActionLink("Add a New Treat", "Create")</p>
-  }
-  else
-  {
-    <ul>
-      @foreach (Treat treat in Model)
-      {
-        <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
-        <ul>
-            @if (treat.Join.Count == 0)
-            {
-              <p>No flavors have been added to this treat yet</p>
-            }
-            else
-            {
-              @foreach (TreatFlavor join in treat.Join)
-              {
-                <li>@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
-              }
-            }
-        </ul>
-      }
-    </ul>
-    <p>@Html.ActionLink("Add a New Treat", "Create")</p>
-  }
-  @using (Html.BeginForm())
-  {
-    <input type="button" value="See All Treats" onclick="showTreatList()" id="see-treats-button">
-  }
-  <br>
-  <div id="treat-list" class="hidden">
-    <h2>All Available Treats</h2>
-    @if (@ViewBag.AllTreats.Count == 0)
+    <h2>@ViewBag.Nickname's Saved Treats</h2>
+    <br>
+    @if (Model.Count == 0)
     {
-      <h5>No treats have been added yet!</h5>
+      <h5>No treats have been saved yet!</h5>
+      <br>
+      <h5>@Html.ActionLink("Add a New Treat", "Create")</h5>
     }
     else
     {
       <ul>
-        @foreach (Treat treat in @ViewBag.AllTreats)
+        @foreach (Treat treat in Model)
         {
-          <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
+          <li id="accent"><h4>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h4></li>
+          <ul>
+              @if (treat.Join.Count == 0)
+              {
+                <p>No flavors have been added to this treat yet</p>
+              }
+              else
+              {
+                @foreach (TreatFlavor join in treat.Join)
+                {
+                  <li id="accent">@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
+                }
+              }
+          </ul>
+        }
+      </ul>
+      <br>
+      <h5>@Html.ActionLink("Add a New Treat", "Create")</h5>
+    }
+    @using (Html.BeginForm())
+    {
+      <br>
+      <input type="button" value="See All Treats" onclick="showTreatList()" id="pink-btn">
+    }
+    <br>
+    <div id="treat-list" class="hidden">
+      <h2>All Available Treats</h2>
+      <br>
+      @if (@ViewBag.AllTreats.Count == 0)
+      {
+        <h5>No treats have been added yet!</h5>
+      }
+      else
+      {
+        <ul>
+          @foreach (Treat treat in @ViewBag.AllTreats)
+          {
+            <li id="accent"><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
+            <ul>
+              @if (treat.Join.Count == 0)
+              {
+                <p>No flavors have been added to this treat yet</p>
+              }
+              else
+              {
+                @foreach (TreatFlavor join in treat.Join)
+                {
+                  <li id="accent">@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
+                }
+              }
+            </ul>
+          }
+        </ul>
+      }
+      @using (Html.BeginForm())
+      {
+        <br>
+        <input type="button" value="Hide All Treats" onclick="hideTreatList()" id="pink-btn">
+      }
+    </div>
+  }
+  else
+  {
+    <h2>All Available Treats</h2>
+    <br>
+    @if (Model.Count == 0)
+    {
+      <h5 id="accent">No treats have been added yet!</h5>
+    }
+    else
+    {
+      <ul>
+        @foreach (Treat treat in Model)
+        {
+          <li id="accent"><h4>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h4></li>
           <ul>
             @if (treat.Join.Count == 0)
             {
@@ -61,46 +103,12 @@
             {
               @foreach (TreatFlavor join in treat.Join)
               {
-                <li>@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
+                <li id="accent">@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
               }
             }
           </ul>
         }
       </ul>
     }
-    @using (Html.BeginForm())
-    {
-      <input type="button" value="Hide All Treats" onclick="hideTreatList()">
-    }
-  </div>
-}
-else
-{
-  <h2>All Available Treats</h2>
-  @if (Model.Count == 0)
-  {
-    <h5>No treats have been added yet!</h5>
   }
-  else
-  {
-    <ul>
-      @foreach (Treat treat in Model)
-      {
-        <li><h5>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h5></li>
-        <ul>
-            @if (treat.Join.Count == 0)
-            {
-              <p>No flavors have been added to this treat yet</p>
-            }
-            else
-            {
-              @foreach (TreatFlavor join in treat.Join)
-              {
-                <li>@Html.ActionLink($"{join.Flavor.Description}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</li>
-              }
-            }
-        </ul>
-      }
-    </ul>
-  }
-}
+</div>

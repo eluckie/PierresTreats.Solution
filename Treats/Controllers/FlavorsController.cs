@@ -125,9 +125,10 @@ namespace Treats.Controllers
     public ActionResult DeleteJoin(int joinId)
     {
       TreatFlavor join = _db.TreatFlavors.FirstOrDefault(join => join.TreatFlavorId == joinId);
+      int flavorId = join.FlavorId;
       _db.TreatFlavors.Remove(join);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = flavorId });
     }
   }
 }

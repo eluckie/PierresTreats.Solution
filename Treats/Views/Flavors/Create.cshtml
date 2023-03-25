@@ -4,16 +4,18 @@
 
 @model Treats.Models.Flavor
 
-<h2>Add a New Flavor Profile</h2>
+<div id="page-content">
+  <h2>Add a new flavor profile</h2>
 
-@using (Html.BeginForm())
-{
-  <p>@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
-  @Html.LabelFor(model => model.Description)
-  <br>
-  @Html.TextBoxFor(model => model.Description)
-  <br><br>
-  <input type="submit" value="Add Flavor Profile">
-  <br><br>
-  <p>@Html.ActionLink("Cancel", "Index")</p>
-}
+  @using (Html.BeginForm())
+  {
+    <p>@Html.ValidationMessageFor(model => model.Description, "", new { @id = "accent", @style = "font-weight: 600;" })</p>
+    @Html.LabelFor(model => model.Description)
+    <br>
+    @Html.TextBoxFor(model => model.Description)
+    <br><br>
+    <input type="submit" value="Add Flavor Profile" id="blue-btn">
+    <br><br>
+    <h5>@Html.ActionLink("Cancel", "Index")</h5>
+  }
+</div>

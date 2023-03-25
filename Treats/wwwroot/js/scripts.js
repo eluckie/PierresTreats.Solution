@@ -12,27 +12,27 @@ function hideModal(type) {
 function showTreatList() {
   let list = document.getElementById("treat-list");
   list.removeAttribute("class");
-  let button = document.getElementById("see-treats-button");
+  let button = document.getElementById("pink-btn");
   button.setAttribute("class", "hidden");
 }
 
 function hideTreatList() {
   let list = document.getElementById("treat-list");
   list.setAttribute("class", "hidden");
-  let button = document.getElementById("see-treats-button");
+  let button = document.getElementById("pink-btn");
   button.removeAttribute("class");
 }
 
 function showFlavorList() {
   let list = document.getElementById("flavor-list");
   list.removeAttribute("class");
-  let button = document.getElementById("see-flavors-button");
+  let button = document.getElementById("pink-btn");
   button.setAttribute("class", "hidden");
 }
 
 function hideFlavorList() {
   let list = document.getElementById("flavor-list");
   list.setAttribute("class", "hidden");
-  let button = document.getElementById("see-flavors-button");
+  let button = document.getElementById("pink-btn");
   button.removeAttribute("class");
 }

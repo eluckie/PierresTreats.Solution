@@ -5,93 +5,108 @@
 @using Treats.Models;
 @model Treats.Models.Treat
 
-@if (User.Identity.IsAuthenticated)
-{
-  <h2>@Model.Name</h2>
-  <h5>Ingredients</h5>
-  <p>@Model.Ingredients</p>
-  <br>
-  <h5>Flavor Profiles</h5>
-  @if (Model.Join.Count == 0)
+<div id="page-content">
+  @if (User.Identity.IsAuthenticated)
   {
-    <p>This treat hasn't specified any flavors yet</p>
-  }
-  else
-  {
-    @foreach (TreatFlavor join in Model.Join)
+    <h1>@Model.Name</h1>
+    <br>
+    <h4 id="accent">Ingredients</h4>
+    <h5>@Model.Ingredients</h5>
+    <br>
+    <h4 id="accent">Flavor Profiles</h4>
+    @if (Model.Join.Count == 0)
     {
-      <p>@Html.ActionLink(join.Flavor.Description, "Details", "Flavors", new { id = join.FlavorId })</p>
-      @using (Html.BeginForm("DeleteJoin", "Treats", new { joinId = join.TreatFlavorId }))
-      {
-        <input type="submit" value="Remove">
-        <br><br>
-      }
+      <p>This treat hasn't specified any flavors yet</p>
     }
-  }
+    else
+    {
+      <ul style="display: inline;">
+      @foreach (TreatFlavor join in Model.Join)
+      {
+        <li style="display: inline-block; padding:14px;">
+          <h5>@Html.ActionLink(join.Flavor.Description, "Details", "Flavors", new { id = join.FlavorId })</h5>
+          @using (Html.BeginForm("DeleteJoin", "Treats", new { joinId = join.TreatFlavorId }))
+          {
+            <input type="submit" value="Remove" id="tiny-btn">
+            <br><br>
+          }
+        </li>
+      }
+      </ul>
+    }
 
-  <div id="treat-edit-modal" class="modal obscured">
-    <div class="modal-message">
-      <p>Edit @Model.Name Details</p>
+    <div id="treat-edit-modal" class="modal obscured">
+      <div class="modal-message" id="page-content">
+        <p id="blue-accent">Edit @Model.Name's Details</p>
+      </div>
+
+      @using (Html.BeginForm("Edit", "Treats", new { id = Model.TreatId }))
+      {
+        @Html.HiddenFor(model => model.TreatId)
+
+        @Html.LabelFor(model => model.Name)
+        <br>
+        @Html.TextBoxFor(model => model.Name)
+        <br><br>
+        @Html.LabelFor(model => model.Ingredients)
+        <br>
+        @Html.TextAreaFor(model => model.Ingredients, new { rows = "10" })
+        <br><br>
+        <input type="submit" value="Update Treat" id="blue-btn">
+        <button type="button" onclick="hideModal('treat-edit')" id="grey-btn">Cancel</button>
+      }
     </div>
 
-    @using (Html.BeginForm("Edit", "Treats", new { id = Model.TreatId }))
+    <div id="treat-delete-modal" class="modal obscured">
+      <div id="page-content">
+        @using (Html.BeginForm("Delete", "Treats", new { id = Model.TreatId }))
+        {
+          <p>Are you sure you want to delete <span id="accent">@Model.Name?</span></p>
+          <br>
+          <input type="submit" value="Delete @Model.Name" id="blue-btn">
+          <br><br>
+          <button type="button" onclick="hideModal('treat-delete')" id="grey-btn">Cancel</button>
+        }
+      </div>
+    </div>
+    <br>
+    @using (Html.BeginForm())
     {
-      @Html.HiddenFor(model => model.TreatId)
-
-      @Html.LabelFor(model => model.Name)
-      <br>
-      @Html.TextBoxFor(model => model.Name)
-      <br><br>
-      @Html.LabelFor(model => model.Ingredients)
-      <br>
-      @Html.TextAreaFor(model => model.Ingredients, new { rows = "10" })
-      <br><br>
-      <input type="submit" value="Update Treat">
-      <br><br>
-      <button type="button" onclick="hideModal('treat-edit')">Cancel</button>
+      <input type="button" onclick="showModal('treat-edit')" value="Edit Treat" id="blue-btn">
     }
-  </div>
-
-  <div id="treat-delete-modal" class="modal obscured">
-    @using (Html.BeginForm("Delete", "Treats", new { id = Model.TreatId }))
+    <br>
+    @using (Html.BeginForm())
     {
-      <p>Are you sure you want to delete @Model.Name?</p>
-      <br>
-      <input type="submit" value="Delete @Model.Name">
-      <br><br>
-      <button type="button" onclick="hideModal('treat-delete')">Cancel</button>
+      <input type="button" onclick="showModal('treat-delete')" value="Delete Treat" id="grey-btn">
     }
-  </div>
-
-  @using (Html.BeginForm())
-  {
-    <input type="button" onclick="showModal('treat-edit')" value="Edit Treat">
-  }
-
-  @using (Html.BeginForm())
-  {
-    <input type="button" onclick="showModal('treat-delete')" value="Delete Treat">
-  }
-  <br>
-  <p>@Html.ActionLink($"Add flavors to {Model.Name}", "AddFlavor", new { id = Model.TreatId })</p>
-}
-else
-{
-  <h2>@Html.DisplayFor(model => model.Name)</h2>
-  <h5>Ingredients</h5>
-  <p>@Html.DisplayFor(model => model.Ingredients)</p>
-  <br>
-  <h5>Flavor Profiles</h5>
-  @if (Model.Join.Count == 0)
-  {
-    <p>This treat hasn't specified any flavors yet</p>
+    <br>
+    <div id="page-links">
+      <span id="page-links">@Html.ActionLink($"Add flavors to {Model.Name}", "AddFlavor", new { id = Model.TreatId })</span>
+      <span id="page-links">@Html.ActionLink("Back to List", "Index")</span>
+    </div>
   }
   else
   {
-    @foreach (TreatFlavor join in Model.Join)
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
+    <br>
+    <h4 id="accent">Ingredients</h4>
+    <h5>@Html.DisplayFor(model => model.Ingredients)</h5>
+    <br>
+    <h4 id="accent">Flavor Profiles</h4>
+    @if (Model.Join.Count == 0)
     {
-      <p>@Html.ActionLink(join.Flavor.Description, "Details", "Flavors", new { id = join.FlavorId })</p>
+      <p>This treat hasn't specified any flavors yet</p>
+    }
+    else
+    {
+      <ul style="display: inline;">
+      @foreach (TreatFlavor join in Model.Join)
+      {
+        <li style="display: inline-block; padding:14px;">
+          @Html.ActionLink(join.Flavor.Description, "Details", "Flavors", new { id = join.FlavorId })
+        </li>
+      }
+      </ul>
     }
   }
-}
-<p>@Html.ActionLink("Back to List", "Index")</p>
+</div>
