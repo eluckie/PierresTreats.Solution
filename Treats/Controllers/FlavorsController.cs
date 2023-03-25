@@ -86,5 +86,12 @@ namespace Treats.Controllers
         .FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
+    [HttpPost]
+    public ActionResult Edit(Flavor updatedFlavor)
+    {
+      _db.Flavors.Update(updatedFlavor);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = updatedFlavor.FlavorId });
+    }
   }
 }
