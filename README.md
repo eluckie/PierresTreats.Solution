@@ -11,34 +11,36 @@
 * EF Core 7.0
 * Identity
 * MySQL Workbench
-* HTML
+* Razor HTML
 * Markdown
+* CSS
 * Git
 
 ## Description
-_{This is a detailed description of your application. Give as much detail as needed to explain what the application does as well as any other information you want users or other developers to have.}_
+This webpage acts as an online bakery. When not logged in, the home page advises users to login or create an account to manage their own treats and flavors. Un-verified users are still able to view the list of all treats & all flavors. Once users have created an account, the home page displays the list of treats and flavors they have personally added. Users are able to add/edit/delete treats or flavors. They are also able to add a treat to a specified flavor profile, or add flavor profiles to a specified treat. From the account page, users are able to view/edit their account details or log out.
 
 ### Paths
 
-**/** Home page welcoming user to {Dr. Sillystringz's}. Contains an overview list of current {engineers} & current {machines}. Also has links to manage or add {engineers}, and manage or add {machines}
+**/** When not logged in, home page directs users to login or create an account. When logged in, displays list of users added treats and flavor profiles
 
-**/{Engineers}** {Engineers} main page showing full list of current {engineers} and their pronouns
+**/Treats** Treats main page showing full list of current Treats and their respective flavors. If logged in, displays user's list of added treats along with a button to see all available treats
 
-**/{Machines}** {Machines} main page showing full list of current {machines} and their respective {engineers}
+**/Flavors** Flavors main page showing full list of current flavors, If logged in, displays user's list of added flavors along with a button to see all available flavors
 
-**/{{Engineers} or {Machines}}/Create** A form to add a new machine or engineer (depending on which link was clicked)
+**/{Treats or Flavors}/Create** A form to add a new flavor or treat (depending on which link was clicked)
 
-**/{Engineers}/Details/{id}** A page that displays the selected engineer's name, pronouns, hire date, and any current machine ceritifications. Includes links to add a new machine to this engineer, edit this engineer, delete this engineer, return back to the full list of {engineers}, see the full list of {machines}, or return to the home page. Also includes a clickable button to un-certify engineer from any specific machine
+**/{Treats or Flavors}/Details/{id}** A page that displays the selected item's name (& ingredients, if a treat), and any associations between the flavors and treats. Includes links to add a new flavor/treat to this item or return back to the full list of items. Also includes buttons to edit, delete, or remove associations from the item
+* The _edit_ button pops up a window to update the selected item. Canceling dismisses the window, & updating refreshes the page to display the new updates
+* The _delete_ button pops up a window to confirm deletion of the selected item. If deleted, the user is re-routed back to respective main page. Canceling dismisses the window
 
-**/{{Engineers} or {Machines}}/Edit/{id}** A form to edit the current machine or engineer (depending on which link was clicked). Both forms include links that say _NVM NVM NVM_ and take the user back to the selected detail pages, and links to instead manage the {machines} or {engineers}, or go back to the main page
+**/Flavors/AddTreat/{id}** A page that displays the selected flavor's name and a drop down list of current treats. The user is able to select one treat from the list at a time to _Add_ which will associate the selected treat with the flavor and re-route to the selected flavor's details page, showing the updated list of associated treats
 
-**/{{Engineers} or {Machines}}/Delete/{id}** A page confirming you'd like to delete the selected engineer or machine. Clicking the button officially deletes them, and re-routes the user back to the respective main pages displaying the full list of {engineers} or {machines}. If user clicks the _NVM NVM NVM_ link instead of the button, the selected machine or engineer is not deleted, and the user is re-routed back to the selected's details page
+**/Treats/AddFlavor/{id}** A page that displays the selected treat's name and a form to select checkboxes of the current flavors. The user is able to select multiple flavors from the list and click _Add_ which will associate the selected flavors with the treat and re-route to the treat's details page, showing the updated list of flavors
 
-**/{Machines}/Details/{id}** A page that displays the selected machine's name, description, install date, and any technicians certified for that machine. From there, the user is also able to choose to edit or delete the selected machine, as well as add some new {engineers} to be certified
+**/Account** When not logged in, simply displays links to either create an account or login. When logged in, welcomes the user by name and displays their username & email. There is also buttons to edit or log out
+* The _edit_ button pops up a window to edit your account nickname or username. Canceling dismisses the window, & updating refreshes the page to display the new updates
+* The _log out_ button logs the user out of their account and redirects them to the main home page
 
-**/{Machines}/AddEngineer/{id}** A page that displays the selected machine's name and a drop down list of current {engineers}. The user is able to select one engineer from the list at a time to _Make it official_ which will certify the selected engineer and re-route to the selected machine's details page, showing the updated list of certified {engineers}
-
-**/{Engineers}/AddRepairs/{id}** A page that displays the selected engineer's name and a form to select checkboxes of the current {machines}. The user is able to select multiple {machines} from the list and click _Let's gooooo_ which will certify the selected engineer and re-route to their details page, showing the updated list of certifications
 
 
 ## Setup/Installation Requirements
@@ -46,8 +48,8 @@ _{This is a detailed description of your application. Give as much detail as nee
 1. Clone this repository
 2. Open your terminal (e.g., Terminal or GitBash) and navigate to this project's production directory called _**Treats**_.
 3. In the command line, run the command ``dotnet restore`` to restore the necessary packages for the application to run
-4. Within the production level of this directory, called _**Treats**_, create a new file called **appsettings.json**
-5. Input the following code into your _**appsettings.json**_ file
+4. Within the production level of this directory, called _**Treats**_, create a new file called ``appsettings.json``
+5. Input the following code into your ``appsettings.json`` file
 
 ```
 {
@@ -56,7 +58,6 @@ _{This is a detailed description of your application. Give as much detail as nee
   }
 }
 ```
-
 * Replace _[ YOUR-DB-NAME ]_ with the name you would like for the database that you will be utilizing via MySQL Workbench
 * Replace _[ YOUR-USER-HERE ]_ with your username for MySQL Workbench
 * Replace _[ YOUR-PASSWORD-HERE ]_ with your password for MySQL Workbench
@@ -66,16 +67,20 @@ _{This is a detailed description of your application. Give as much detail as nee
 ### Viewing the Active Project
 6. In your computer's terminal, navigate to the production level of this directory called _**Treats**_
 7. In the command line, run the command ``dotnet ef database update``
-* This will create a new database for the project in MySQL Workbench named as you specified in the _appsettings.json_ file.
+* This will create a new database for the project in MySQL Workbench named as you specified in the ``appsettings.json`` file.
 * You may choose to verify that the new database and related tables were created accurated in MySQL Workbench by clicking the small refresh button in the top right corner of the _Schemas_ tab. Your new database name should appear on the list and you should be able to click on it to view/alter the relevant tables
 8. In the command line, run the command ``dotnet watch run`` to compile and execute the webpage in Development mode
 * Optionally, you can run the command ``dotnet build`` to compile the program without running it
 
+_**Keep in mind, the project is currently set in development mode so the password requirements are off. If deploying, you will need to un-comment the Default Password Requirements in ``Program.cs`` as well as the regular expression in ``Treats/ViewModels/RegisterViewModel.cs``**_
+
+### Schemas
+![screenshot of database tables displaying all properties of Flavor, all properties of Treat, and tying the connection between the 2 to a TreatFlavor table with TreatId and FlavorId being the connecting piece](Treats/wwwroot/img/schema.png)
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+* If leaving a form empty on update, throws an exception page rather than displaying error message
+* If leaving a spot empty on edit form for user, does not throw an error
 
 ## Stretch Plans
 
