@@ -17,11 +17,11 @@ namespace Treats.Controllers
     private readonly TreatsContext _db;
     private readonly UserManager<AppUser> _userManager;
     public FlavorsController(UserManager<AppUser> userManager, TreatsContext db)
-      {
-        _userManager = userManager;
-        _db = db;
-      }
-      [AllowAnonymous]
+    {
+      _userManager = userManager;
+      _db = db;
+    }
+    [AllowAnonymous]
     public async Task<ActionResult> Index()
     {
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -75,6 +75,16 @@ namespace Treats.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
       }
+    }
+    [AllowAnonymous]
+    public ActionResult Details(int id)
+    {
+      ViewBag.PageTitle = "Flavor Details";
+      Flavor thisFlavor = _db.Flavors
+        .Include(flavor => flavor.Join)
+        .ThenInclude(join => join.Treat)
+        .FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
     }
   }
 }

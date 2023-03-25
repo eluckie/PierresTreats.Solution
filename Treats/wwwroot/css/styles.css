@@ -49,3 +49,15 @@
   width: 300px;
   height: 200px;
 }
+
+.modal#flavor-edit-modal {
+	background-color: rgb(76, 64, 64);
+  width: 300px;
+  height: 300px;
+}
+
+.modal#flavor-delete-modal {
+	background-color: rgb(76, 64, 64);
+  width: 300px;
+  height: 200px;
+}
