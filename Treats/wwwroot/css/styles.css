@@ -126,7 +126,6 @@ body {
 #blue-btn {
 	background-color: #4080c0;
 	color: white;
-	font-family:Bradley Hand;
 	padding: 8px;
 	font-size: 18px;
 }
@@ -134,14 +133,12 @@ body {
 #grey-btn {
 	background-color: lightgray;
 	color: #4080c0;
-	font-family:Bradley Hand;
 	padding: 4px;
 }
 
 #pink-btn {
 	background-color: #dd84c8;
 	color: white;
-	font-family:Bradley Hand;
 	padding: 4px;
 }
 

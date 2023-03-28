@@ -2,7 +2,7 @@
 
 #### By E. Luckie ☀️
 
-#### This webpage application acts as a marketing tool for a bakery owner. Users are able to view all of the currrent treats offered. They are also able to create a profile to be able to add, edit, and delete treats from the page.
+#### This webpage application acts as a marketing tool for a bakery owner. Users are able to view all of the current treats offered. They are also able to create a profile to be able to add, edit, and delete treats from the page.
 
 ## Technologies Used
 
@@ -12,6 +12,7 @@
 * Identity
 * MySQL Workbench
 * Razor HTML
+* Javascript
 * Markdown
 * CSS
 * Git
@@ -51,14 +52,14 @@ This webpage acts as an online bakery. When not logged in, the home page advises
 4. Within the production level of this directory, called _**Treats**_, create a new file called ``appsettings.json``
 5. Input the following code into your ``appsettings.json`` file
 
-```
+```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Port=3306;database=[YOUR-DB-NAME];uid=[YOUR-USER-HERE];pwd=[YOUR-PASSWORD-HERE];"
+    "DefaultConnection": "Server=localhost;Port=3306;database=pierres_treats;uid=[YOUR-USER-HERE];pwd=[YOUR-PASSWORD-HERE];"
   }
 }
 ```
-* Replace _[ YOUR-DB-NAME ]_ with the name you would like for the database that you will be utilizing via MySQL Workbench
+
 * Replace _[ YOUR-USER-HERE ]_ with your username for MySQL Workbench
 * Replace _[ YOUR-PASSWORD-HERE ]_ with your password for MySQL Workbench
 * Make sure you save the changes you've made to the file
@@ -81,6 +82,7 @@ _**Keep in mind, the project is currently set in development mode so the passwor
 
 * If leaving a form empty on update, throws an exception page rather than displaying error message
 * If leaving a spot empty on edit form for user, ^
+* Background image does not always cover screen if window is resized too small
 
 ## Stretch Plans
 
